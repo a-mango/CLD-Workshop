@@ -18,9 +18,9 @@ Validate the possible use of OpenShift for deploying and managing a multi-tier a
 
 ### Summary
 
-The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a RHEL management workstation, a MariaDB database, an EFM stack and an OpenShift cluster, while AWS and Azure are used to provision OpenShift clusters. Each cluster is set up with 3 nodes and a load balancer to route traffic to the nodes.
+The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a RHEL management workstation, a PostgreSQL database, an EFM stack and an OpenShift cluster, while AWS and Azure are used to provision OpenShift clusters. Each cluster is set up with 3 nodes and a load balancer to route traffic to the nodes.
 
-The [Bookstack](https://www.bookstackapp.com/) multi-tier application consists of a frontend, backend, and database tier. The application images are built using a CI/CD pipeline and stored in a container registry. Argo CD is used for GitOps-based deployments across all clusters. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
+The open source ticket sales application [Pretix](https://github.com/pretix/pretix) is used to showcase the multi-tier architecture. It consits of a frontend, a backend, an SSL-terminating web server, a redis cache and a database. The application images are built using a CI/CD pipeline and stored in a container registry. Argo CD is used for GitOps-based deployments across all clusters. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
 
 ---
 
@@ -77,7 +77,7 @@ The [Bookstack](https://www.bookstackapp.com/) multi-tier application consists o
 #### Task 9: Set up Load Balancer for On-Premises Cluster
 - **Given** the on-premises infrastructure is ready
 - **And** the virtual machines are provisioned
-- **When** a load balancer is configured (e.g., HAProxy, F5)
+- **When** a load balancer is configured (HAProxy)
 - **Then** the load balancer should route traffic to the OpenShift master nodes
 
 #### Task 10: Set up OpenShift Cluster On-Premises
@@ -98,9 +98,9 @@ The [Bookstack](https://www.bookstackapp.com/) multi-tier application consists o
 
 ### Feature 2: Multi-Tier Application Setup
 
-#### Task 1: Set Up MariaDB on On-Premises Server
+#### Task 1: Set Up PostgreSQL on On-Premises Server
 - **Given** the on-premises infrastructure is ready
-- **When** MariaDB is installed and configured on the on-premises server
+- **When** PostgreSQL is installed and configured on the on-premises server
 - **Then** the database should be ready for the multi-tier application
 
 #### Task 2: Prepare Application Images
