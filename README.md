@@ -129,10 +129,10 @@ The open source ticket sales application [Pretix](https://github.com/pretix/pret
 - **When** the OpenShift clusters (AWS, Azure, on-premises) are added to Argo CD
 - **Then** Argo CD should be able to manage deployments across all clusters
 
-#### Task 7: Deploy Application Tiers to All Clusters Using GitOps
+#### Task 7: Deploy Application Tiers to All Clusters Using Argo CD
 - **Given** the application images are available in the container registry
 - **And** Argo CD is configured to manage all OpenShift clusters
-- **When** the application deployment is initiated using a GitOps approach with Argo CD
+- **When** the application deployment is initiated using Argo CD
 - **Then** the application tiers (frontend, backend, database) should be successfully deployed on all clusters
 - **And** the service should be accessible from all clusters
 
@@ -168,7 +168,7 @@ The open source ticket sales application [Pretix](https://github.com/pretix/pret
 
 #### Task 5: Set Up Cross-Cluster Failover
 - **Given** the multi-tier application is deployed across AWS, Azure, and on-premises clusters
-- **When** a cross-cluster failover mechanism (e.g., Global Server Load Balancer, DNS-based failover) is configured
+- **When** a cross-cluster failover mechanism (Route 53) is configured
 - **Then** the application should continue to be accessible via other clusters if one cluster fails
 
 #### Task 6: Validate Cross-Cluster Failover
