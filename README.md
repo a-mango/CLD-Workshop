@@ -10,7 +10,7 @@ Validate the possible use of OpenShift for deploying and managing a multi-tier a
 
 ### Diagram
 
-![](assets/openshift-infra.svg)
+![](assets/openshift-infra.png)
 
 ## Scenario
 
