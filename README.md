@@ -2,7 +2,7 @@
 
 ## POC objectives
 
-Validate the possible use of OpenShift for deploying and managing a multi-tier architecture in an hybrid cloud context to showcase automated builds, cross-cluster deployments, log aggregation and monitoring, scaling, and failover capabilities.
+Validate the possible use of OpenShift for deploying and managing a multi-tier architecture in a hybrid cloud context to showcase automated builds, cross-cluster deployments, log aggregation and monitoring, scaling, and failover capabilities.
 
 ## Infra architecture
 
