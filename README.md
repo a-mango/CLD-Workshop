@@ -16,7 +16,9 @@ Validate the possible use of OpenShift for deploying and managing a multi-tier a
 
 ### Summary
 
-The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a management workstation, a database, an EFM stack and an OpenShift cluster, while AWS and Azure are used to provision OpenShift clusters. The clusters are set up with load balancers and logging to an aggregated logging solution. The [Bookstack](https://www.bookstackapp.com/) multi-tier application is deployed across all clusters using GitOps with Argo CD. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
+The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a RHEL management workstation, a MariaDB database, an EFM stack and an OpenShift cluster, while AWS and Azure are used to provision OpenShift clusters. Each cluster is set up with 3 nodes and a load balancer to route traffic to the nodes. Route 53 is used for DNS-based failover routing between the clusters.
+
+The [Bookstack](https://www.bookstackapp.com/) multi-tier application consists of a frontend, backend, and database tier. The application images are built using a CI/CD pipeline and stored in a container registry. Argo CD is used for GitOps-based deployments across all clusters. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
 
 ---
 
