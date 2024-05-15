@@ -1,0 +1,75 @@
+title OpenShift Infrastructure
+
+// On-premises infrastructure for management and initial services
+Proxmox On-Premises [color: lightblue] {
+  RHEL Management Workstation [icon: red-hat] {
+    CICD Pipeline [icon: tools]
+    Container Registry [icon: openshift]
+    Argo CD [icon: argo]
+  }
+  PorstreSQL Database [icon: database]
+  EFM Stack [icon: elasticsearch]
+  OpenShift Cluster On-Prem [icon: openshift] {
+    Load Balancer On-Prem [icon: load-balancer]
+    Node1 On-Prem [icon: virtual-machine]
+    Node2 On-Prem [icon: virtual-machine]
+    Node3 On-Prem [icon: virtual-machine]
+  }
+}
+
+// AWS infrastructure for additional OpenShift cluster
+AWS VPC Public Cloud [color: orange] {
+  OpenShift Cluster AWS [icon: openshift] {
+    Load Balancer AWS [icon: aws-elastic-load-balancing]
+    Node1 AWS [icon: virtual-machine]
+    Node2 AWS [icon: virtual-machine]
+    Node3 AWS [icon: virtual-machine]
+  }
+}
+
+// Azure infrastructure for additional OpenShift cluster
+Azure VPC Public Cloud [color: lightgreen] {
+  OpenShift Cluster Azure [icon: openshift] {
+    Load Balancer Azure [icon: azure-load-balancer]
+    Node1 Azure [icon: virtual-machine]
+    Node2 Azure [icon: virtual-machine]
+    Node3 Azure [icon: virtual-machine]
+  }
+}
+
+// Multi-tier application hosted across clusters
+Pretix Application [color: purple] {
+  Frontend [icon: django]
+  API [icon: celery]
+  Nginx [icon: nginx]
+  Cache [icon: redis]
+}
+
+// DNS and routing management
+DNS and Routing [icon: globe] {
+  Route 53 [icon: aws-route-53]
+}
+
+WAN [icon: cloud]
+
+// Connections
+// Proxmox On-Premises connections
+Proxmox On-Premises > DNS and Routing
+
+// AWS VPC Public Cloud connections
+AWS VPC Public Cloud > DNS and Routing
+
+// Azure VPC Public Cloud connections
+Azure VPC Public Cloud > DNS and Routing
+
+// Application deployment across clusters
+Pretix Application > Proxmox On-Premises
+Pretix Application > AWS VPC Public Cloud
+Pretix Application > Azure VPC Public Cloud
+
+// OpenShift Cluster On-Prem > EFM Stack
+// OpenShift Cluster AWS > EFM Stack
+// OpenShift Cluster Azure > EFM Stack
+
+// DNS routing setup
+DNS and Routing > WAN
