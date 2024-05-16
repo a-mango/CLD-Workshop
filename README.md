@@ -22,6 +22,8 @@ The scenario describes the setup of a multi-cloud OpenShift environment. On-prem
 
 The open source ticket sales application [Pretix](https://github.com/pretix/pretix) is used to showcase the multi-tier architecture. It consists of a frontend, a backend, an SSL-terminating web server, a redis cache, and a database. The application images are stored in a container registry. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
 
+**Note**: the on-premises infrastructure is simulated using either a local hypervisor (on a laptop at school or in one of the team member's homelab) or a cloud-based hypervisor.
+
 ---
 
 ### Feature 1: Cluster Setup
