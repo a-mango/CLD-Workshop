@@ -2,7 +2,7 @@
 
 ## POC objectives
 
-Validate the possible use of OpenShift for deploying and managing a multi-tier architecture in a hybrid cloud context to showcase automated builds, cross-cluster deployments, log aggregation and monitoring, scaling, and failover capabilities.
+Validate the possible use of OpenShift for deploying and managing a multi-tier architecture in a hybrid cloud context to showcase cross-cluster deployments, scaling, and failover capabilities.
 
 ## Infra architecture
 
@@ -18,9 +18,9 @@ Validate the possible use of OpenShift for deploying and managing a multi-tier a
 
 ### Summary
 
-The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a RHEL management workstation, a PostgreSQL database, an EFM stack and an OpenShift cluster, while AWS and Azure are used to provision OpenShift clusters. Each cluster is set up with 3 nodes and a load balancer to route traffic to the nodes.
+The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a RHEL management workstation, a PostgreSQL database, and an OpenShift cluster, while AWS and Azure are used to provision OpenShift clusters. Each cluster is set up with 3 nodes and a load balancer to route traffic to the nodes.
 
-The open source ticket sales application [Pretix](https://github.com/pretix/pretix) is used to showcase the multi-tier architecture. It consits of a frontend, a backend, an SSL-terminating web server, a redis cache and a database. The application images are built using a CI/CD pipeline and stored in a container registry. Argo CD is used for GitOps-based deployments across all clusters. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
+The open source ticket sales application [Pretix](https://github.com/pretix/pretix) is used to showcase the multi-tier architecture. It consists of a frontend, a backend, an SSL-terminating web server, a redis cache, and a database. The application images are stored in a container registry. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
 
 ---
 
@@ -88,12 +88,6 @@ The open source ticket sales application [Pretix](https://github.com/pretix/pret
 - **Then** the OpenShift cluster should be successfully deployed on-premises
 - **And** the cluster API should be accessible
 
-#### Task 11: Set Up Logging Subsystem Across All Clusters
-- **Given** AWS, Azure, and on-premises OpenShift clusters are operational
-- **When** a centralized logging solution (Elasticsearch, Fluentd, and Kibana - EFK) is configured
-- **Then** logs should be aggregated and accessible from all clusters
-- **And** log analysis should be possible across all clusters
-
 ---
 
 ### Feature 2: Multi-Tier Application Setup
@@ -103,40 +97,26 @@ The open source ticket sales application [Pretix](https://github.com/pretix/pret
 - **When** PostgreSQL is installed and configured on the on-premises server
 - **Then** the database should be ready for the multi-tier application
 
-#### Task 2: Prepare Application Images
+#### Task 2: Build and Store Application Images
 - **Given** the multi-tier application source code
 - **And** Dockerfiles for building the application images
-- **When** the images are built using the CI/CD pipeline
+- **When** the images are built using the Dockerfiles
 - **Then** the images should be stored in a container registry accessible to all clusters
 
-#### Task 3: Set up GitHub Webhook
-- **Given** the GitHub repository with the multi-tier application code
-- **When** a webhook is configured to trigger builds on OpenShift
-- **Then** a push to the repository should trigger a new build
-
-#### Task 4: Create BuildConfig in OpenShift
-- **Given** the multi-tier application code in GitHub
+#### Task 3: Create BuildConfig in OpenShift
+- **Given** the multi-tier application code is available in a Git repository
 - **When** a BuildConfig is created in OpenShift
 - **Then** OpenShift should be able to build the Docker image from the repository
 
-#### Task 5: Install Argo CD on Management Workstation
-- **Given** the RHEL management workstation is set up
-- **When** Argo CD is installed on the workstation
-- **Then** the workstation should be able to manage deployments to all OpenShift clusters
-
-#### Task 6: Configure Argo CD to Manage All Clusters
-- **Given** Argo CD is installed on the management workstation
-- **When** the OpenShift clusters (AWS, Azure, on-premises) are added to Argo CD
-- **Then** Argo CD should be able to manage deployments across all clusters
-
-#### Task 7: Deploy Application Tiers to All Clusters Using Argo CD
+#### Task 5: Deploy Application Tiers to All Clusters
 - **Given** the application images are available in the container registry
-- **And** Argo CD is configured to manage all OpenShift clusters
-- **When** the application deployment is initiated using Argo CD
-- **Then** the application tiers (frontend, backend, database) should be successfully deployed on all clusters
+- **And** the OpenShift clusters are ready
+- **When** the application deployment is initiated
+- **Then** the application tiers (frontend, backend, web server, cache) should be successfully deployed on all clusters
+- **And** the database should be successfully deployed on the on-premises cluster
 - **And** the service should be accessible from all clusters
 
-#### Task 8: Configure Route 53 for DNS-Based Failover
+#### Task 6: Configure Route 53 for DNS-Based Failover
 - **Given** Route 53 is available in the AWS account
 - **When** a hosted zone is created for the application's domain
 - **And** health checks are configured for each cluster's load balancer
