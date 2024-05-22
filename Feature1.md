@@ -15,28 +15,54 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=<OpenShift-Instance-T
 ```
 
 Create a security group
-```sh
-aws ec2 create-security-group --group-name OS-ELB-SG --description "Security group for OpenShift ELB"
+```bash
+aws ec2 create-security-group \
+    --group-name SG-OpenShift-ELB \
+    --description "Security group for OpenShift ELB" \
+    --vpc-id <VPC-Id>
 ```
 
-```sh
-aws ec2 authorize-security-group-ingress --group-id <SG-GroupId> --protocol tcp --port 80 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-id <SG-GroupId> --protocol tcp --port 443 --cidr 0.0.0.0/0
+```bash
+aws ec2 authorize-security-group-ingress \
+    --group-id <SG-Id> \
+    --protocol tcp \
+    --port 80 \
+    --cidr 0.0.0.0/0
+
+aws ec2 authorize-security-group-ingress \
+    --group-id <SG-Id> \
+    --protocol tcp \
+    --port 443 \
+    --cidr 0.0.0.0/0
 ```
 
 Create an application load balancer
-```sh
-aws elbv2 create-load-balancer --name OS-ALB --subnets <subnet-1-id> <subnet-2-id> --security-groups <OpenShift-ELB-SG-GroupId> --scheme internet-facing --type application
+```bash
+aws elbv2 create-load-balancer \
+    --name OS-ALB \
+    --subnets <subnet-1-id> <subnet-2-id> \
+    --security-groups <OpenShift-ELB-SG-GroupId> \
+    --scheme internet-facing \
+    --type application
 ```
 
 Create target group
-```sh
-aws elbv2 create-target-group --name OS-Master-TG --protocol HTTPS --port 6443 --vpc-id <vpc-id> --health-check-protocol HTTPS --health-check-port 6443 --target-type instance
+```bash
+aws elbv2 create-target-group \
+    --name OS-Master-TG \
+    --protocol HTTPS \
+    --port 6443 \
+    --vpc-id <vpc-id> \
+    --health-check-protocol HTTPS \
+    --health-check-port 6443 \
+    --target-type instance
 ```
 
 Register target group
-```sh
-aws elbv2 register-targets --target-group-arn <TG-Arn> --targets Id=<instance-id-1> Id=<instance-id-2> Id=<instance-id-3>
+```bash
+aws elbv2 register-targets \
+    --target-group-arn <TG-Arn> \
+    --targets Id=<instance-id-1> Id=<instance-id-2> Id=<instance-id-3>
 ```
 
 ## Task 4: Set up OpenShift Cluster on AWS
