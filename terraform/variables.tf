@@ -54,6 +54,49 @@ variable "vm_password" {
   sensitive   = true
 }
 
+variable "vm_memory" {
+  description = "Memory for VMs in MB"
+  type        = number
+  default     = 16384
+}
+
+variable "vm_cores" {
+  description = "Number of cores for VMs"
+  type        = number
+  default     = 4
+}
+
+variable "vm_sockets" {
+  description = "Number of sockets for VMs"
+  type        = number
+  default     = 1
+}
+
+variable "vm_vcpus" {
+  description = "Number of vCPUs for VMs"
+  type        = number
+  default     = 4
+}
+
+variable "vm_disk_size" {
+  description = "Disk size for VMs"
+  type        = string
+  default     = "50G"
+}
+
+variable "vm_network_bridge" {
+  description = "Network bridge"
+  type        = string
+  default     = "vmbr0"
+}
+
+variable "gateway" {
+  description = "Gateway IP"
+  type        = string
+  default     = "10.0.10.1"
+}
+
+
 variable "master_count" {
   description = "Number of master nodes"
   type        = number
@@ -69,41 +112,11 @@ variable "worker_count" {
 variable "master_id_base" {
   description = "Base ID for master nodes"
   type        = number
-  default     = 1
+  default     = 100
 }
 
 variable "worker_id_base" {
   description = "Base ID for worker nodes"
   type        = number
-  default     = 1
-}
-
-variable "vm_memory" {
-  description = "Memory for VMs in MB"
-  type        = number
-  default     = 16384
-}
-
-variable "vm_cores" {
-  description = "Number of cores for VMs"
-  type        = number
-  default     = 4
-}
-
-variable "vm_disk_size" {
-  description = "Disk size for VMs"
-  type        = string
-  default     = "50G"
-}
-
-variable "network_bridge" {
-  description = "Network bridge"
-  type        = string
-  default     = "vmbr0"
-}
-
-variable "ip_base" {
-  description = "Base IP for VMs"
-  type        = string
-  default     = "10.0.10"
+  default     = 110
 }
