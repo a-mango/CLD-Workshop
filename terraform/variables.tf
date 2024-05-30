@@ -6,13 +6,9 @@ variable "proxmox_api_url" {
 
 variable "proxmox_api_token_id" {
   description = "Proxmox API token ID"
-variable "proxmox_api_token_id" {
-  description = "Proxmox API token ID"
   type        = string
 }
 
-variable "proxmox_api_token_secret" {
-  description = "Proxmox API token secret"
 variable "proxmox_api_token_secret" {
   description = "Proxmox API token secret"
   type        = string
@@ -73,38 +69,10 @@ variable "ssh_user" {
 }
 
 variable "ssh_password" {
-variable "ssh_password" {
   description = "VM password"
   type        = string
   sensitive   = true
 }
-
-# variable "vm_sockets" {
-#   description = "Number of sockets for VMs"
-#   type        = number
-#   default     = 1
-# }
-# variable "vm_sockets" {
-#   description = "Number of sockets for VMs"
-#   type        = number
-#   default     = 1
-# }
-
-# variable "vm_vcpus" {
-#   description = "Number of vCPUs for VMs"
-#   type        = number
-#   default     = 4
-# }
-
-variable "vm_cpu_type" {
-  description = "CPU type for VMs"
-  type        = string
-  default     = "host"
-# variable "vm_vcpus" {
-#   description = "Number of vCPUs for VMs"
-#   type        = number
-#   default     = 4
-# }
 
 variable "vm_cpu_type" {
   description = "CPU type for VMs"
@@ -128,11 +96,8 @@ variable "vm_network_bridge" {
   description = "Network bridge"
   type        = string
   default     = "vnet10"
-  default     = "vnet10"
 }
 
-variable "vm_network_gateway" {
-  description = "vm_network_gateway IP"
 variable "vm_network_gateway" {
   description = "vm_network_gateway IP"
   type        = string
