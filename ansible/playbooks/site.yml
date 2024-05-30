@@ -1,0 +1,7 @@
+---
+- name: Check network connectivity
+  hosts: all
+  tasks:
+    - name: Ping test
+      ansible.builtin.ping:
+      register: ping_result
