@@ -1,0 +1,57 @@
+title OpenShift Hybrid Cloud Infrastructure
+
+pve [color: lightblue, label: "Proxmox On-Premises"] {
+  pve_openshift [icon: openshift, label: "OpenShift Cluster On-Prem PaaS"] {
+    Load Balancer On-Prem [icon: load-balancer]
+    Node1 Master On-Prem [icon: virtual-machine]
+    Node2 Master On-Prem [icon: virtual-machine]
+    Node3 Master On-Prem [icon: virtual-machine]
+    Node1 Worker On-Prem [icon: virtual-machine]
+    Node2 Worker On-Prem [icon: virtual-machine]
+  }
+}
+
+aws [color: orange, label: "AWS VPC IaaS"] {
+  aws_rds [icon: aws-rds, label: "PostgreSQL RDS"]
+  aws_openshift [icon: openshift, label: "OpenShift Cluster AWS PaaS"] {
+    Load Balancer [icon: load-balancer]
+    aws_node_1 [icon: virtual-machine, label: "Master 1"]
+    aws_node_2 [icon: virtual-machine, label: "Master 2"]
+    aws_node_3 [icon: virtual-machine, label: "Master 3"]
+    aws_node_4 [icon: virtual-machine, label: "Worker 1"]
+    aws_node_5 [icon: virtual-machine, label: "Worker 2"]
+    aws_node_6 [icon: virtual-machine, label: "Worker 3"]
+  }
+}
+
+route53 [icon: aws-route-53, label: "Route 53"]
+app [icon: docker, label: "Mattermost"]
+github [icon: github, label: "GitHub SaaS Container Registry"]
+redhat [icon: red-hat, label: "Red Hat Hybrid Cloud Platform"]
+
+user [icon: user, label: "End user"]
+admin [icon: user, label: "Administrator"]
+
+WAN [icon: cloud]
+
+// ------------ Links --------------
+
+pve - route53: ">>22/80/443:SSH/HTTP/HTTPS <<22/80/443:SSH/HTTP/HTTPS"
+aws - route53 : ">>22/80/443:SSH/HTTP/HTTPS <<22/80/443:SSH/HTTP/HTTPS"
+
+github - pve_openshift
+github - aws_openshift
+
+app > pve: "deploy"
+app > aws: "deploy"
+
+route53 - WAN: ">>22/80/443:SSH/HTTP/HTTPS <<22/80/443:SSH/HTTP/HTTPS"
+
+redhat - pve: ">>80/443:HTTP/HTTPS <<80/443:HTTP/HTTPS"
+redhat - aws: ">>80/443:HTTP/HTTPS <<80/443:HTTP/HTTPS"
+redhat - admin
+
+WAN < admin: ">>22/80/443:SSH/HTTP/HTTPS <<22/80/443:SSH/HTTP/HTTPS"
+WAN < user: "<<80/443:HTTP/HTTPS >>80/443:HTTP/HTTPS"
+
+pve - aws_rds : "<<22/5432:SSH/PostgreSQL >>22/5432:SSH/PostgreSQL"
