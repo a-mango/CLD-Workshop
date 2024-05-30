@@ -1,8 +1,3 @@
-output "dns_server_ip" {
-  value = proxmox_lxc.dns_server.network[0].ip
-  description = "The IP address of the DNS server"
-}
-
 output "lb_ip" {
   value = proxmox_lxc.load-balancer.network[0].ip
   description = "The IP address of the load balancer"

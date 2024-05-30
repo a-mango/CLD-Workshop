@@ -107,36 +107,6 @@ resource "proxmox_vm_qemu" "pve-worker-nodes" {
   }
 }
 
-resource "proxmox_lxc" "dns_server" {
-  target_node     = var.proxmox_node
-  ostemplate      = var.proxmox_container_template
-  vmid            = var.dns_container_id
-  hostname        = var.dns_container_name
-  password        = var.dns_container_password
-  ssh_public_keys = var.ssh_public_key
-  cores           = var.proxmox_container_cpu
-  memory          = var.proxmox_container_memory
-  pool            = var.proxmox_pool
-  unprivileged    = true
-  start           = true
-
-  network {
-    name   = "eth0"
-    ip     = "${var.dns_container_ip}/24"
-    gw     = var.vm_network_gateway
-    bridge = var.vm_network_bridge
-  }
-
-  rootfs {
-    storage = "local-lvm"
-    size    = "8G"
-  }
-
-  features {
-    nesting = false
-  }
-}
-
 resource "proxmox_lxc" "load-balancer" {
   target_node     = var.proxmox_node
   ostemplate      = var.proxmox_container_template

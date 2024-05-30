@@ -138,7 +138,7 @@ variable "master_ips" {
 variable "worker_count" {
   description = "Number of worker nodes"
   type        = number
-  default     = 3
+  default     = 2
 }
 
 variable "worker_id_base" {
@@ -162,32 +162,7 @@ variable "worker_cores" {
 variable "worker_ips" {
   description = "IP addresses for master nodes"
   type        = list(string)
-  default     = ["10.0.10.15", "10.0.10.16", "10.0.10.17"]
-}
-
-# DNS settings
-variable "dns_container_name" {
-  description = "Name of the DNS container"
-  type        = string
-  default     = "dns1"
-}
-
-variable "dns_container_password" {
-  description = "Password for the DNS container"
-  type        = string
-  sensitive   = true
-}
-
-variable "dns_container_id" {
-  description = "ID of the DNS container"
-  type        = number
-  default     = 8020
-}
-
-variable "dns_container_ip" {
-  description = "IP address for the DNS container"
-  type        = string
-  default     = "10.0.10.2"
+  default     = ["10.0.10.15", "10.0.10.16"]
 }
 
 variable "lb_container_name" {
