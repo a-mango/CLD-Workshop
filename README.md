@@ -56,18 +56,11 @@ The open source collaboration platform [Mattermost](https://github.com/mattermos
 
 #### Task 5: Provision On-Premises Infrastructure for OpenShift
 - **Given** the on-premises infrastructure is ready with a hypervisor
-- **When** virtual machines for master and worker nodes are provisioned
-- **Then** the instances should be ready for OpenShift installation
+- **When** a virtual machine is provisioned
+- **Then** the instance should be ready for OpenShift installation
 
-#### Task 6: Set up Load Balancer for On-Premises Cluster
-- **Given** the on-premises infrastructure is ready
-- **And** the virtual machines are provisioned
-- **When** a load balancer is configured (HAProxy)
-- **Then** the load balancer should route traffic to the OpenShift master nodes
-
-#### Task 7: Set up OpenShift Cluster On-Premises
+#### Task 6: Set up OpenShift Cluster On-Premises
 - **Given** the on-premises instances are provisioned
-- **And** the load balancer is configured
 - **And** the necessary network configuration is in place
 - **When** the OpenShift installer is run with the on-premises configuration
 - **Then** the OpenShift cluster should be successfully deployed on-premises
@@ -126,18 +119,13 @@ The open source collaboration platform [Mattermost](https://github.com/mattermos
 - **When** load tests are run to simulate high traffic
 - **Then** the application should perform optimally and handle the load without issues
 
-#### Task 4: Set Up Cross-Cluster Failover
-- **Given** the multi-tier application is deployed across AWS and on-premises clusters
-- **When** a cross-cluster failover mechanism (Route 53) is configured
-- **Then** the application should continue to be accessible via other clusters if one cluster fails
-
-#### Task 5: Validate Cross-Cluster Failover
+#### Task 4: Validate Cross-Cluster Failover
 - **Given** the cross-cluster failover mechanism is configured
 - **When** one of the clusters goes down
 - **Then** the application should continue to be accessible through the other clusters
 - **And** the failover should be seamless
 
-#### Task 6: Test Autoscaling
+#### Task 5: Test Autoscaling
 - **Given** autoscaling is configured for all clusters
 - **When** load tests are performed to increase CPU/memory usage
 - **Then** the application should scale out additional pods on all clusters
