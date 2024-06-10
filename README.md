@@ -12,7 +12,7 @@ Validate the possible use of OpenShift for deploying and managing a multi-tier a
 
 ### Diagram
 
-![](assets/openshift-infra-v2.png)
+![](assets/openshift-infra-v6.png)
 
 ## Scenario
 
@@ -20,7 +20,7 @@ Validate the possible use of OpenShift for deploying and managing a multi-tier a
 
 ### Summary
 
-The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a RHEL management workstation, a PostgreSQL database, and an OpenShift cluster. AWS is used to provision an OpenShift cluster and a Route 53 load balancer used for . Each cluster is set up with 3 nodes and a load balancer to route traffic to the nodes.
+The scenario describes the setup of a multi-cloud OpenShift environment. On-premises infrastructure is used to host a RHEL management workstation, a PostgreSQL database, and an OpenShift cluster. AWS is used to provision an OpenShift cluster and a Route 53 load balancer used for cluster failover. The AWS cluster is set up with 5 nodes and a load balancer to route traffic to the nodes. The on-premises cluster is set up with a single OpenShift node.
 
 The open source collaboration platform [Mattermost](https://github.com/mattermost/mattermost) is used to showcase a 2-tier architecture. It consists of an application and a database. The images are stored in a container registry. Route 53 is used for DNS-based failover routing. The application is tested for functionality, load, and failover scenarios.
 
@@ -70,10 +70,10 @@ The open source collaboration platform [Mattermost](https://github.com/mattermos
 
 ### Feature 2: Multi-Tier Application Setup
 
-#### Task 1: Set Up PostgreSQL on On-Premises Server
-- **Given** the on-premises infrastructure is ready
-- **When** PostgreSQL is installed and configured on the on-premises server
-- **Then** the database should be ready for the multi-tier application
+#### Task 1: Set Up PostgreSQL on RDS
+- **Given** an AWS account with appropriate permissions
+- **When** a PostgreSQL database is provisioned on RDS
+- **Then** the database should be accessible by the multi-tier application
 
 #### Task 2: Build and Store Application Images
 - **Given** the multi-tier application source code
