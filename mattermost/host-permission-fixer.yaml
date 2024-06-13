@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: host-permission-fixer
+  namespace: mattermost
+spec:
+  containers:
+  - name: host-permission-fixer
+    image: busybox
+    command: ["sh", "-c", "chmod -R 777 /mnt/data/mattermost/config && chown -R 1000700000:1000700000 /mnt/data/mattermost/config && ls -l /mnt/data/mattermost/config && sleep 3600"]
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: host-volume
+      mountPath: /mnt/data/mattermost/config
+  volumes:
+  - name: host-volume
+    hostPath:
+      path: /mnt/data/mattermost/config
+      type: Directory
+  restartPolicy: Never
+

@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: mattermost
+spec:
+  to:
+    kind: Service
+    name: mattermost
+  port:
+    targetPort: 80
+

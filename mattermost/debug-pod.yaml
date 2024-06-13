@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-pod
+  namespace: mattermost
+spec:
+  containers:
+  - name: debug-container
+    image: busybox
+    command: ["sh", "-c", "sleep 3600"]
+    volumeMounts:
+    - name: config-volume
+      mountPath: /mnt/data/mattermost/config
+    - name: data-volume
+      mountPath: /mnt/data/mattermost/data
+    - name: logs-volume
+      mountPath: /mnt/data/mattermost/logs
+    - name: plugins-volume
+      mountPath: /mnt/data/mattermost/plugins
+    - name: client-plugins-volume
+      mountPath: /mnt/data/mattermost/client-plugins
+    - name: bleve-indexes-volume
+      mountPath: /mnt/data/mattermost/bleve-indexes
+    securityContext:
+      runAsUser: 1000700000
+  volumes:
+  - name: config-volume
+    hostPath:
+      path: /mnt/data/mattermost/config
+      type: Directory
+  - name: data-volume
+    hostPath:
+      path: /mnt/data/mattermost/data
+      type: Directory
+  - name: logs-volume
+    hostPath:
+      path: /mnt/data/mattermost/logs
+      type: Directory
+  - name: plugins-volume
+    hostPath:
+      path: /mnt/data/mattermost/plugins
+      type: Directory
+  - name: client-plugins-volume
+    hostPath:
+      path: /mnt/data/mattermost/client-plugins
+      type: Directory
+  - name: bleve-indexes-volume
+    hostPath:
+      path: /mnt/data/mattermost/bleve-indexes
+  restartPolicy: Never

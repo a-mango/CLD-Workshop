@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mattermost
+  namespace: mattermost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mattermost
+  template:
+    metadata:
+      labels:
+        app: mattermost
+    spec:
+      securityContext:
+        fsGroup: 1000700000
+        runAsUser: 1000700000
+      initContainers:
+      - name: init-permissions
+        image: busybox
+        command: ["sh", "-c", "chmod -R 777 /mattermost/config"]
+        securityContext:
+          runAsUser: 0  # Running as root to change ownership
+        volumeMounts:
+        - mountPath: /mattermost/config
+          name: config
+      containers:
+      - name: mattermost
+        image: ghcr.io/guggisbergsimon/mattermost:openshiftv2
+        ports:
+        - containerPort: 8065
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - "ALL"
+          runAsNonRoot: true
+          runAsUser: 1000700000
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - mountPath: /mattermost/config
+          name: config
+        - mountPath: /mattermost/data
+          name: data
+        - mountPath: /mattermost/logs
+          name: logs
+        - mountPath: /mattermost/plugins
+          name: plugins
+        - mountPath: /mattermost/client/plugins
+          name: client-plugins
+        - mountPath: /mattermost/bleve-indexes
+          name: bleve-indexes
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: mattermost-config
+      - name: data
+        persistentVolumeClaim:
+          claimName: mattermost-data
+      - name: logs
+        persistentVolumeClaim:
+          claimName: mattermost-logs
+      - name: plugins
+        persistentVolumeClaim:
+          claimName: mattermost-plugins
+      - name: client-plugins
+        persistentVolumeClaim:
+          claimName: mattermost-client-plugins
+      - name: bleve-indexes
+        persistentVolumeClaim:
+          claimName: mattermost-bleve-indexes
